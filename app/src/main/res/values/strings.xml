@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="password">Password</string>
+    <string name="username">username</string>
+    <string name="error_while_logging_in">Error while logging in</string>
+    <string name="name">Username</string>
+    <string name="email">Email</string>
+    <string name="fetch_user">fetch user</string>
+    <string name="confirm">Confirm</string>
+</resources>
