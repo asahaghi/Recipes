@@ -109,7 +109,8 @@ public class MenuFragment extends Fragment {
                 menuAdapter = new MenuListAdapter(getContext(),filteredMenu) {
                     @Override
                     public void onItemClick(int id) {
-                        // TODO: 1/7/2023
+                        
+                        ((MainActivity)requireActivity()).addFragment(new RecipeFragment(id));
                     }
                 };
                 rvMenu.setAdapter(menuAdapter);
