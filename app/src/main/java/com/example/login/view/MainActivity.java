@@ -1,6 +1,7 @@
 package com.example.login.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,121 +19,38 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 import com.example.login.core.Constant;
+import com.example.login.model.Menu;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    TextView tvUser, tvEmail, fetchResult;
-    SharedPreferences sharedPreferences;
-    Button btnLogout, fetchProfile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-        if (sharedPreferences.getString("logged", "false").equals("false")) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
-        tvUser.setText(sharedPreferences.getString("name",""));
-        tvEmail.setText(sharedPreferences.getString("email",""));
+        addFragment(new ProfileFragment());
+        // addFragment(new RecipeFragment());
 
     }
 
-    private void init() {
-        sharedPreferences = getSharedPreferences(Constant.MY_PREFS_NAME,MODE_PRIVATE);
-        tvEmail = findViewById(R.id.tv_email);
-        tvUser = findViewById(R.id.tv_user);
-        btnLogout = findViewById(R.id.btn_logout);
-        fetchProfile = findViewById(R.id.fetch_profile);
-        fetchResult = findViewById(R.id.fetch_result);
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callApi();
-            }
-        });
-
-        fetchProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                callApi1();
-            }
-        });
-
-
+    public void addFragment(Fragment fragment){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fl_container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
-    private void callApi() {
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://192.168.43.56/login-register/logout.php";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        if (response.equals("success")){
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("logged", "");
-                            editor.putString("name", "");
-                            editor.putString("email", "");
-                            editor.putString("apiKey", "");
-                            editor.apply();
-                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else
-                            Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> paramV = new HashMap<>();
-                paramV.put("email", sharedPreferences.getString("email",""));
-                paramV.put("apiKey", sharedPreferences.getString("apiKey",""));
-                return paramV;
-            }
-        };
-        queue.add(stringRequest);
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
+            getSupportFragmentManager().popBackStack();
+        else
+            finish();    // Finish the activity
     }
-    private void callApi1(){
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://192.168.43.56/login-register/profile.php";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        fetchResult.setText(response);
-                        fetchResult.setVisibility(View.VISIBLE);
-
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }) {
-            protected Map<String, String> getParams() {
-                Map<String, String> paramV = new HashMap<>();
-                paramV.put("email", sharedPreferences.getString("email",""));
-                paramV.put("apiKey", sharedPreferences.getString("apiKey",""));
-                return paramV;
-            }
-        };
-        queue.add(stringRequest);
-    }
 }
