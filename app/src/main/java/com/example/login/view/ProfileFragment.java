@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     private View rootView;
     TextView tvUser, tvEmail, fetchResult;
     SharedPreferences sharedPreferences;
-    Button btnLogout, fetchProfile;
+    Button btnLogout, fetchProfile, btnMenu;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,6 +54,7 @@ public class ProfileFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences(Constant.MY_PREFS_NAME,MODE_PRIVATE);
         tvEmail = rootView.findViewById(R.id.tv_email);
         tvUser = rootView.findViewById(R.id.tv_user);
+        btnMenu = rootView.findViewById(R.id.btn_menu);
         btnLogout = rootView.findViewById(R.id.btn_logout);
         fetchProfile = rootView.findViewById(R.id.fetch_profile);
         fetchResult = rootView.findViewById(R.id.fetch_result);
@@ -68,6 +69,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 callApi1();
+            }
+        });
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)requireActivity()).addFragment(new MenuFragment());
             }
         });
     }
