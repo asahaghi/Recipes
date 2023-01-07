@@ -7,35 +7,8 @@ import java.util.List;
 
 public class Menu {
 
-    private String menuName;
-    private String details;
-    private String ImageUrl;//// FIXME: ImageUrl explain
 
-    public Menu(String menuName, String details) {
-        this.menuName = menuName;
-        this.details = details;
-    }
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-  //  public void setMenuName(String menuName) { this.menuName = menuName;}
-
-    public String getDetails() {
-        return details;
-    }
-
-   // public void setDetails(String details) { this.details = details; }
-
-    public String getImageUrl() {
-        return ImageUrl;
-    }
-
-    public void setImageUrl(String url) {
-        this.ImageUrl = url;
-    }
-    /*@SerializedName("id")
+    @SerializedName("id")
     private int id;
 
     @SerializedName("title")
@@ -88,5 +61,5 @@ public class Menu {
 
     public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
-    }*/
+    }
 }

@@ -57,17 +57,17 @@ public abstract class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapt
 
 
 
-        holder.tvMenu.setText(menu.get(position).getMenuName());
+        holder.tvMenu.setText(menu.get(position).getTitle());
         holder.tvDetails.setText(menu.get(position).getDetails());
 
-      /*  holder.llParent.setOnClickListener(new View.OnClickListener() {
+        holder.llParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 //Toast.makeText(context,"Item at position"+ holder.getAdapterPosition() +"clicked",Toast.LENGTH_SHORT).show();
                 onItemClick(menu.get(holder.getAdapterPosition()).getId());
             }
-        });*/
+        });
 
     }
 
