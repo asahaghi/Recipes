@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkWhite"
     android:orientation="vertical"
     android:layout_margin="8dp">
+
 
     <FrameLayout
         android:id="@+id/fl_recipe"
@@ -19,7 +21,9 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/ic_video"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/iv_play"/>
 
 
     </FrameLayout>
@@ -33,16 +37,34 @@
         android:text="Ingredients"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:layout_margin="14dp"/>
+        android:layout_margin="14dp"
+        android:visibility="gone"/>
+
+
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lv_recipe" />
-    <!--<TextView
+
+
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:id="@+id/tv_test"/>-->
+        android:id="@+id/tv_test"
+        android:text="hello"/>
+
+
+
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
