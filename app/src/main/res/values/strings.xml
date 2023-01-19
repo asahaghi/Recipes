@@ -7,4 +7,5 @@
     <string name="email">Email</string>
     <string name="fetch_user">fetch user</string>
     <string name="confirm">Confirm</string>
+    <string name="leave_a_comment"><u>Leave a comment</u></string>
 </resources>

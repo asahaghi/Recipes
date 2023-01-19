@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/darkWhite"
     android:orientation="vertical"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:clickable="true">
 
 
     <FrameLayout
@@ -28,17 +29,38 @@
 
     </FrameLayout>
 
-
-    <TextView
-        android:id="@+id/tv_ing"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/textSize1"
-        android:text="Ingredients"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_margin="14dp"
-        android:visibility="gone"/>
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tv_ing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="14dp"
+            android:text="Ingredients"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize1"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:text="@string/leave_a_comment"
+            android:textSize="18sp"
+            android:layout_alignParentRight="true"
+            android:textColor="#0074CC"
+            android:textColorLink="#0074CC"
+            android:layout_alignBaseline="@+id/tv_ing"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
 
 
 
@@ -48,7 +70,6 @@
         android:id="@+id/lv_recipe" />
 
 
-
     <ProgressBar
         android:id="@+id/pb_loading"
         android:layout_width="wrap_content"
@@ -56,12 +77,12 @@
         android:layout_gravity="center" />
 
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:id="@+id/tv_test"
-        android:text="hello"/>
+        android:text="hello"/>-->
 
 
 

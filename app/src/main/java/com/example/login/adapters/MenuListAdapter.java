@@ -65,7 +65,7 @@ public abstract class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapt
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context,"Item at position"+ holder.getAdapterPosition() +"clicked",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context,"Item at position"+ holder.getAdapterPosition() +"clicked",Toast.LENGTH_SHORT).show();
                 onItemClick(menu.get(holder.getAdapterPosition()).getId());
             }
         });

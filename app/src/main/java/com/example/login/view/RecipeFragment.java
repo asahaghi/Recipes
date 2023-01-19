@@ -41,11 +41,11 @@ public class RecipeFragment extends Fragment {
     private View rootView;
     private int id;
     private ListView lvRecipe;
-    private TextView tvTest;
+    //private TextView tvTest;
     SharedPreferences sharedPreferences;
     private List<Menu> menu = new ArrayList<>();
     private ImageView ivRecipe,ivPlay;
-    private TextView tvIng;
+    private TextView tvIng,tvComment;
     private FrameLayout flRecipe;
     ArrayList<String> ingredients;
     private ProgressBar pbLoading;
@@ -79,13 +79,20 @@ public class RecipeFragment extends Fragment {
     }
     private void init(){
         sharedPreferences = getContext().getSharedPreferences(Constant.MY_PREFS_NAME,MODE_PRIVATE);
-        tvTest = rootView.findViewById(R.id.tv_test);
+        //tvTest = rootView.findViewById(R.id.tv_test);
         lvRecipe = rootView.findViewById(R.id.lv_recipe);
         ivRecipe = rootView.findViewById(R.id.iv_recipe);
         tvIng = rootView.findViewById(R.id.tv_ing);
         flRecipe = rootView.findViewById(R.id.fl_recipe);
         ivPlay = rootView.findViewById(R.id.iv_play);
         pbLoading = rootView.findViewById(R.id.pb_loading);
+        tvComment = rootView.findViewById(R.id.tv_comment);
+        tvComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)requireActivity()).addFragment(new CommentFragment(id));
+            }
+        });
 
     }
     private void callRecipeApi(){
@@ -98,6 +105,7 @@ public class RecipeFragment extends Fragment {
             @Override
             public void onResponse(Call<RecipesResponse> call, Response<RecipesResponse> response) {
                 pbLoading.setVisibility(View.GONE);
+                tvComment.setVisibility(View.VISIBLE);
                 ivPlay.setVisibility(View.VISIBLE);
                 tvIng.setVisibility(View.VISIBLE);
                 menu = response.body().getResult();
