@@ -1,5 +1,7 @@
 package com.example.login.view;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,15 +18,25 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 import com.example.login.adapters.MenuListAdapter;
 import com.example.login.api.RecipeService;
 import com.example.login.api.RecipesResponse;
+import com.example.login.db.AppDatabase;
 import com.example.login.model.Menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +52,7 @@ public class MenuFragment extends Fragment {
     private List<Menu> filteredMenu = new ArrayList<>();
     private MenuListAdapter menuAdapter;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +65,8 @@ public class MenuFragment extends Fragment {
         init();
 
         callRecipesApi();
+
+
 
         return rootView;
     }
@@ -77,6 +93,8 @@ public class MenuFragment extends Fragment {
             }
         });
 
+
+
     }
 
     private void filter(String searchText){
@@ -90,7 +108,7 @@ public class MenuFragment extends Fragment {
         menuAdapter.notifyDataSetChanged();
     }
 
-    private void callRecipesApi(){
+    public void callRecipesApi(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://mocki.io/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -103,9 +121,16 @@ public class MenuFragment extends Fragment {
                 rootView.findViewById(R.id.tv_first).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.pb_loading).setVisibility(View.GONE);
 
+                // TODO: 7/15/2022 insertToDataBase
+                //<editor-fold desc="add menu to database">
+                AppDatabase db = Room.databaseBuilder(getContext(),AppDatabase.class, "recipes.db")
+                       .allowMainThreadQueries()
+                        .build();
+                db.menuDao().insert(response.body().getResult());
+                //</editor-fold>
+
                 allMenu = response.body().getResult();
                 filteredMenu.addAll(allMenu);
-
                 menuAdapter = new MenuListAdapter(getContext(),filteredMenu) {
                     @Override
                     public void onItemClick(int id) {
@@ -118,10 +143,11 @@ public class MenuFragment extends Fragment {
 
             @Override
             public void onFailure(Call<RecipesResponse> call, Throwable t) {
-                Log.d("AAA", "onFailure: ");
+               // Log.d("AAA", "onFailure: ");
             }
         });
 
     }
+
 
 }
