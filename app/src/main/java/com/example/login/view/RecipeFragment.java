@@ -20,12 +20,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.example.login.R;
 import com.example.login.api.RecipeService;
 import com.example.login.api.RecipesResponse;
 import com.example.login.core.Constant;
+import com.example.login.db.AppDatabase;
 import com.example.login.model.Menu;
 
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class RecipeFragment extends Fragment {
     private TextView tvIng,tvComment;
     private FrameLayout flRecipe;
     ArrayList<String> ingredients;
+    String youtubeUrl;
     private ProgressBar pbLoading;
     public RecipeFragment(int id) {
         this.id = id;
@@ -61,15 +64,22 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_recipe,null,false);
+
+        lvRecipe = rootView.findViewById(R.id.lv_recipe);
+        ivRecipe = rootView.findViewById(R.id.iv_recipe);
+        tvIng = rootView.findViewById(R.id.tv_ing);
+        flRecipe = rootView.findViewById(R.id.fl_recipe);
+
         init();
-        callRecipeApi();
+        refreshDisplay();
+
         flRecipe.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 //Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
-                Uri uri = Uri.parse("https://www.youtube.com/watch?v=bzg_BU39y2g");
+                Uri uri = Uri.parse(youtubeUrl);
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 startActivity(intent);
 
@@ -79,13 +89,37 @@ public class RecipeFragment extends Fragment {
     }
     private void init(){
         sharedPreferences = getContext().getSharedPreferences(Constant.MY_PREFS_NAME,MODE_PRIVATE);
-        //tvTest = rootView.findViewById(R.id.tv_test);
-        lvRecipe = rootView.findViewById(R.id.lv_recipe);
-        ivRecipe = rootView.findViewById(R.id.iv_recipe);
-        tvIng = rootView.findViewById(R.id.tv_ing);
-        flRecipe = rootView.findViewById(R.id.fl_recipe);
-        ivPlay = rootView.findViewById(R.id.iv_play);
-        pbLoading = rootView.findViewById(R.id.pb_loading);
+        AppDatabase db = Room.databaseBuilder(getContext(),AppDatabase.class, "recipes.db")
+                .allowMainThreadQueries()
+                .build();
+
+        Menu menu = db.menuDao().getMenu(id);
+
+        //tv1 = rootView.findViewById(R.id.tv_1);
+
+        String title = db.menuDao().getMenu(id).getTitle();
+
+        //Toast.makeText(getContext(), "this is "+ , Toast.LENGTH_SHORT).show();
+
+        ingredients = (ArrayList<String>) db.menuDao().getMenu(id).getIngredients();
+
+        ingredients.add(String.valueOf(lvRecipe));
+        int count = db.menuDao().getMenu(id).getIngredients().size();
+
+        tvIng.setText(String.format("Ingredients(%s)",count));
+
+
+        youtubeUrl = db.menuDao().getMenu(id).getYoutubeUrl();
+
+
+
+        Glide.with(getContext())
+                .load(db.menuDao().getMenu(id).getImageUrl())
+                .centerCrop()
+                //.placeholder(R.drawable.mini_pizza)
+                .into(ivRecipe);
+
+
         tvComment = rootView.findViewById(R.id.tv_comment);
         tvComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,52 +129,12 @@ public class RecipeFragment extends Fragment {
         });
 
     }
-    private void callRecipeApi(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://mocki.io/v1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        RecipeService api = retrofit.create(RecipeService.class);
-        api.recipes().enqueue(new Callback<RecipesResponse>() {
-            @Override
-            public void onResponse(Call<RecipesResponse> call, Response<RecipesResponse> response) {
-                pbLoading.setVisibility(View.GONE);
-                tvComment.setVisibility(View.VISIBLE);
-                ivPlay.setVisibility(View.VISIBLE);
-                tvIng.setVisibility(View.VISIBLE);
-                menu = response.body().getResult();
-                int i;
-                int num = menu.size();
-                    for (Menu m : menu){
-                        try {
-                            int count1 = menu.get(id-1).getIngredients().size();
-                            tvIng.setText(String.format("Ingredients(%s)",count1));
-                            ingredients = (ArrayList<String>)menu.get(id-1).getIngredients();
-                            Glide.with(getContext())
-                                    .load(menu.get(id-1).getImageUrl())
-                                    .centerCrop()
-                                    //.placeholder(R.drawable.mini_pizza)
-                                    .into(ivRecipe);
-                        }catch (Exception exception){
-                            Log.d("AAA", "onResponse: ");
-                        }
-                        refreshDisplay();
 
-                    }
-
-            }
-
-            @Override
-            public void onFailure(Call<RecipesResponse> call, Throwable t) {
-
-            }
-        });
-    }
 
     private void refreshDisplay(){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, ingredients);
-        /*int count = adapter.getCount();
-        adapter.remove(adapter.getItem(count - 1));*/
+        int count = adapter.getCount();
+        adapter.remove(adapter.getItem(count - 1));
         lvRecipe.setAdapter(adapter);
     }
 }

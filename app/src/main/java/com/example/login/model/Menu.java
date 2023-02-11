@@ -38,6 +38,7 @@ public class Menu {
     private String author;
 
     @ColumnInfo(name = "youtube_url")
+    @SerializedName("youtube_url")
     private String youtubeUrl;
 
     public String getAuthor() {
