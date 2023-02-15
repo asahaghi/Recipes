@@ -15,10 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 
 import com.bumptech.glide.Glide;
 import com.example.login.R;
+import com.example.login.db.AppDatabase;
 import com.example.login.model.Menu;
 import com.example.login.view.MainActivity;
 
@@ -60,7 +62,9 @@ public abstract class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapt
 
         holder.tvMenu.setText(menu.get(position).getTitle());
         holder.tvDetails.setText(menu.get(position).getDetails());
-
+        if (position>10) {
+            holder.tvAuthor.setText(menu.get(position).getAuthor());
+        }
         holder.llParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +82,7 @@ public abstract class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapt
     }
 
     public class MenuListViewHolder extends RecyclerView.ViewHolder {
-        TextView tvMenu, tvDetails;
+        TextView tvMenu, tvDetails, tvAuthor;
         ImageView ivPoster;
         LinearLayout llParent;
         CardView cvMenu;
@@ -90,6 +94,7 @@ public abstract class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapt
             tvDetails = itemView.findViewById(R.id.tv_details);
             ivPoster = itemView.findViewById(R.id.iv_poster);
             cvMenu = itemView.findViewById(R.id.cv_menu);
+            tvAuthor = itemView.findViewById(R.id.tv_author);
         }
     }
     public abstract void onItemClick(int id);

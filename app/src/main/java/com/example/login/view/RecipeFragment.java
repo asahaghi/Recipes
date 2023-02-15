@@ -29,6 +29,7 @@ import com.example.login.api.RecipesResponse;
 import com.example.login.core.Constant;
 import com.example.login.db.AppDatabase;
 import com.example.login.model.Menu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;

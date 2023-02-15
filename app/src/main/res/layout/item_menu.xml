@@ -18,6 +18,7 @@
             android:layout_height="36dp"
             android:src="@drawable/circle_logo" />
         <TextView
+            android:id="@+id/tv_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/recipes"

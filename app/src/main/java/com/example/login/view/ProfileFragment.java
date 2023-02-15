@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.login.R;
 import com.example.login.core.Constant;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +34,13 @@ public class ProfileFragment extends Fragment {
     TextView tvUser, tvEmail, fetchResult;
     SharedPreferences sharedPreferences;
     Button btnLogout, fetchProfile, btnMenu;
+    BottomNavigationView navBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_profile, null, false);
         init();
+
         if (sharedPreferences.getString("logged", "false").equals("false")) {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
@@ -56,6 +59,8 @@ public class ProfileFragment extends Fragment {
         tvUser = rootView.findViewById(R.id.tv_user);
         btnMenu = rootView.findViewById(R.id.btn_menu);
         btnLogout = rootView.findViewById(R.id.btn_logout);
+        navBar = getActivity().findViewById(R.id.bottom_navigation);
+        navBar.setVisibility(View.VISIBLE);
         fetchProfile = rootView.findViewById(R.id.fetch_profile);
         fetchResult = rootView.findViewById(R.id.fetch_result);
         btnLogout.setOnClickListener(new View.OnClickListener() {

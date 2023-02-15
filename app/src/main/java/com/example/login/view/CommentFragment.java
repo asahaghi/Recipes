@@ -20,6 +20,7 @@ import com.example.login.R;
 import com.example.login.adapters.CommentAdapter;
 import com.example.login.core.Constant;
 import com.example.login.model.Comment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CommentFragment extends Fragment {
     public CommentFragment(int id) {
         this.id = id;
     }
-
+    BottomNavigationView navBar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,7 +46,8 @@ public class CommentFragment extends Fragment {
         sharedPreferences = getContext().getSharedPreferences(Constant.MY_PREFS_NAME,MODE_PRIVATE);
         RecyclerView rvComment = rootView.findViewById(R.id.rv_comment);
         rvComment.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        navBar = getActivity().findViewById(R.id.bottom_navigation);
+        navBar.setVisibility(View.GONE);
         List<Comment> comments = new ArrayList<>();
         /*if (id==4){
             comments.add(new Comment(id,"ahmad","kheili khub"));

@@ -16,6 +16,14 @@ import java.util.List;
         void insert(List<Menu> menu);
 
         @Query("SELECT * FROM menu WHERE _id = :id GROUP BY ingredients")
-
         Menu getMenu(int id);
+
+        @Query("SELECT * FROM menu")
+        List<Menu> getAllMenu();
+
+
+        @Insert(onConflict = OnConflictStrategy.REPLACE)
+        void insertMenu(Menu ... menu);
+
+
 }

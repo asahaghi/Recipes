@@ -13,7 +13,7 @@ import java.util.List;
 @Entity(tableName = "menu")
 public class Menu {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
     @SerializedName("id")
     private int id;

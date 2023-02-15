@@ -31,9 +31,12 @@ import com.example.login.adapters.MenuListAdapter;
 import com.example.login.api.RecipeService;
 import com.example.login.api.RecipesResponse;
 import com.example.login.db.AppDatabase;
+import com.example.login.db.MenuDao;
 import com.example.login.model.Menu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +54,9 @@ public class MenuFragment extends Fragment {
     private List<Menu> allMenu = new ArrayList<>();
     private List<Menu> filteredMenu = new ArrayList<>();
     private MenuListAdapter menuAdapter;
+    int id;
+    BottomNavigationView navBar;
+
 
 
     @Nullable
@@ -64,6 +70,7 @@ public class MenuFragment extends Fragment {
 
         init();
 
+
         callRecipesApi();
 
 
@@ -71,10 +78,12 @@ public class MenuFragment extends Fragment {
         return rootView;
     }
 
+
     private void init(){
         rvMenu = rootView.findViewById(R.id.rv_menu);
         rvMenu.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        navBar = getActivity().findViewById(R.id.bottom_navigation);
+        navBar.setVisibility(View.VISIBLE);
         etSearch = rootView.findViewById(R.id.et_search);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,7 +138,26 @@ public class MenuFragment extends Fragment {
                 db.menuDao().insert(response.body().getResult());
                 //</editor-fold>
 
-                allMenu = response.body().getResult();
+               /* Menu menu = new Menu();
+                menu.setId(12);
+                menu.setTitle("Sweet potato, pepper & feta frittata");
+                menu.setDetails("6-8 ingredients | 1 hr");
+                menu.setIngredients(Arrays.asList("300g sweet potatoes, peeled and cut into bite-sized pieces"
+                        ,"300g potatoes, peeled and cut into bite-sized pieces"
+                        ,"1 green pepper, seeds removed and cut into chunks"
+                        ,"1 yellow pepper, seeds removed and cut into chunks"
+                        ,"2 tbsp olive oil"
+                        ,"a pinch of dried chilli flakes"
+                        ,"150ml single cream"
+                        ,"5 eggs"));
+                menu.setAuthor("bbc");
+                menu.setYoutubeUrl("https://www.youtube.com/watch?v=aQvcxNW5OEA");
+                menu.setImageUrl("https://images.immediate.co.uk/production/volatile/sites/30/2022/09/cropped-frittata-0a1d47f.png?quality=90&webp=true&resize=375,341");
+
+                db.menuDao().insertMenu(menu);*/
+
+                allMenu = db.menuDao().getAllMenu();
+                //allMenu = response.body().getResult();
                 filteredMenu.addAll(allMenu);
                 menuAdapter = new MenuListAdapter(getContext(),filteredMenu) {
                     @Override
