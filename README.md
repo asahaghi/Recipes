@@ -4,16 +4,16 @@ This Android app provides a delightful experience for exploring and cooking a wi
 ## Features:
 
 - **Discover Diverse Recipes:** Browse through a vast collection of recipes, categorized and searchable for easy navigation.
--Detailed Recipe View: Get a clear picture of each recipe, including the meal name, cooking time, ingredient list with pictures, and a linked YouTube video for visual guidance.
--Ingredient Breakdown: Clicking on a recipe reveals a dedicated view with a well-organized list of ingredients and their measurements.
--Video Tutorials: Enhance your cooking experience with the included YouTube video for each recipe, providing a visual demonstration of the cooking process.
--Community Engagement: Leave comments on recipes to share your experience, ask questions, or connect with other cooks.
+- **Detailed Recipe View:** Get a clear picture of each recipe, including the meal name, cooking time, ingredient list with pictures, and a linked YouTube video for visual guidance.
+- **Ingredient Breakdown:** Clicking on a recipe reveals a dedicated view with a well-organized list of ingredients and their measurements.
+- **Video Tutorials:** Enhance your cooking experience with the included YouTube video for each recipe, providing a visual demonstration of the cooking process.
+- **Community Engagement:** Leave comments on recipes to share your experience, ask questions, or connect with other cooks.
 ## Technologies Used:
 
--Programming Language: Java
--Networking Library: Retrofit
--Architecture: MVVM
--UI Components: Fragments
+- Programming Language: Java
+- Networking Library: Retrofit
+- Architecture: MVVM
+- UI Components: Fragments
 App Design (Optional):
 
 [Insert a screenshot of your app showcasing the main recipe list or a detailed recipe view]
