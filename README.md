@@ -16,7 +16,7 @@ This Android app provides a delightful experience for exploring and cooking a wi
 - UI Components: Fragments
 
 
-[![App Screenshot](https://ibb.co/2Wb9cdQ)](optional_link_to_specific_image_in_your_app)
+[![App Screenshot]([https://ibb.co/2Wb9cdQ](https://imgtr.ee/images/2024/03/12/a9dbfb662744e8b8a193f8d6fdcc946c.jpeg))](optional_link_to_specific_image_in_your_app)
 
 Getting Started :
 
