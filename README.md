@@ -14,9 +14,9 @@ This Android app provides a delightful experience for exploring and cooking a wi
 - Networking Library: Retrofit
 - Architecture: MVVM
 - UI Components: Fragments
-App Design (Optional):
 
-[Insert a screenshot of your app showcasing the main recipe list or a detailed recipe view]
+
+[![App Screenshot]([screenshot.png](https://ibb.co/2Wb9cdQ))]
 
 Getting Started :
 
