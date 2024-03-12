@@ -16,11 +16,11 @@ This Android app provides a delightful experience for exploring and cooking a wi
 - UI Components: Fragments
 
 
-[![App Screenshot](https://imgtr.ee/images/2024/03/12/8cb9126c54243340e800d5306c8c553d.jpeg)](optional_link_to_specific_image_in_your_app)
+[![App Screenshot](https://imgtr.ee/images/2024/03/12/bb7bad6f32d21a4f271968ded055fc21.jpeg)](optional_link_to_specific_image_in_your_app)
 
-Getting Started :
+**Getting Started :**
 
-Clone the repository using git clone https://github.com/<your-username>/Recipes.git
-Ensure you have the latest Android Studio installed.
-Open the project in Android Studio and review the setup instructions within the codebase (if applicable).
-This README provides a basic overview of the Recipes app. Feel free to explore the codebase for a deeper understanding of its functionalities and implementation.
+- Clone the repository using git clone https://github.com/<your-username>/Recipes.git
+- Ensure you have the latest Android Studio installed.
+- Open the project in Android Studio and review the setup instructions within the codebase (if applicable).
+**This README provides a basic overview of the Recipes app. Feel free to explore the codebase for a deeper understanding of its functionalities and implementation.**
