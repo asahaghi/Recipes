@@ -20,7 +20,7 @@ This Android app provides a delightful experience for exploring and cooking a wi
 
 **Getting Started :**
 
-- Clone the repository using git clone https://github.com/<your-username>/Recipes.git
+- Clone the repository using git clone https://github.com/asahaghi/Recipes.git
 - Ensure you have the latest Android Studio installed.
 - Open the project in Android Studio and review the setup instructions within the codebase (if applicable).
 **This README provides a basic overview of the Recipes app. Feel free to explore the codebase for a deeper understanding of its functionalities and implementation.**
